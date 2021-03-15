@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
@@ -15,13 +16,14 @@ public class JPATest {
 	public void testSave() {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PERSISTENCE");
 		EntityManager em = emf.createEntityManager();
-		em.getTransaction().begin();
+		EntityTransaction et = em.getTransaction();
+		et.begin();
 		Fruit apple = new Fruit();
 		apple.setName("apple");
 		apple.setColour("red");
 		apple.setCalories(5);
 		em.persist(apple);
-		em.getTransaction().commit();
+		et.commit();
 		System.out.println("Fruit record saved successfully");
 		em.close();
 		emf.close();
